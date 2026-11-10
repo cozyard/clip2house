@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo",
+    "Malgun Gothic", "Noto Color Emoji", system-ui, sans-serif;
+
+  --color-bg: #faf7f3;
+  --color-surface: #ffffff;
+  --color-line: #ece6df;
+  --color-ink: #3c3c3c;
+  --color-ink-2: #6f6f6f;
+  --color-mut: #756b62;
+
+  --color-accent: #c64e12;
+  --color-accent-deep: #a23d0c;
+  --color-accent-soft: #fff1e6;
+  --color-accent-line: #ffd4ae;
+
+  --color-success: #397c12;
+  --color-success-deep: #397c12;
+  --color-success-soft: #ecf9df;
+  --color-info: #0878b1;
+  --color-info-deep: #065f8e;
+  --color-gold: #ffc800;
+  --color-gold-soft: #fff5d6;
+  --color-danger: #c83737;
+  --color-danger-deep: #a62929;
+  --color-danger-bg: #ffefef;
+
+  --color-mine: #ffe8d6;
+  --color-chat-bg: #f5f0ea;
+
+  --radius-card: 16px;
+
+  --animate-bob: bob 3s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.4s infinite;
+  --animate-pop: pop 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-fade: fade 0.15s ease;
+  --animate-slide-up: slide-up 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
+  --animate-toast-in: toast-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-tour-hop: tour-hop 0.62s ease-in-out;
+
+  --animate-trade-reward: trade-reward 2.1s ease forwards;
+  --animate-trade-ring: trade-ring 0.8s ease-out forwards;
+
+  @keyframes bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+  @keyframes tour-hop {
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+  @keyframes shimmer {
+    to {
+      background-position: -200% 0;
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes slide-up {
+    from {
+      transform: translateY(32px);
+    }
+  }
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 12px) scale(0.95);
+    }
+  }
+
+  @keyframes trade-reward {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0.35);
+      animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    16% {
+      opacity: 1;
+      transform: translateY(0) scale(1.12);
+    }
+    24% {
+      transform: translateY(0) scale(1);
+    }
+    58% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      animation-timing-function: cubic-bezier(0.6, 0, 0.85, 0.25);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(46dvh) scale(0.16);
+    }
+  }
+
+  @keyframes trade-ring {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    18% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(2.1);
+    }
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+
+  scrollbar-gutter: stable;
+}
+
+body {
+  @apply bg-bg font-sans text-ink antialiased;
+  line-height: 1.5;
+}
+
+.red-clip {
+  filter: grayscale(1) sepia(1) saturate(7) hue-rotate(-52deg) brightness(0.72) contrast(1.15);
+}
+
+#root {
+  max-width: 520px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--color-bg);
+  box-shadow: 0 0 0 2px var(--color-line);
+}
+
+button:focus-visible, a:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

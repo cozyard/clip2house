@@ -1,0 +1,18 @@
+# Build output
+**/node_modules
+ledger/build
+ledger/.gradle
+ledger/out
+ledger/src/main/resources/static
+orchestrator/.venv
+**/__pycache__
+
+# Local data
+.git
+.local
+static/
+*.log
+.env
+.env.*
+**/.env
+**/.env.*

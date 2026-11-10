@@ -1,0 +1,9 @@
+Noto Color Emoji (v39)
+Copyright 2021 Google Inc. All Rights Reserved.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+https://openfontlicense.org
+
+Source: https://fonts.google.com/noto/specimen/Noto+Color+Emoji
+(fonts.gstatic.com에서 받은 공식 woff2를 셀프호스팅한다 —
+Chromium이 렌더링하지 못하는 OT-SVG 계열 재패키징본이 있어 공식 배포본을 쓴다.)

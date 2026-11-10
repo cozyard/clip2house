@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: clip2house
+      POSTGRES_USER: clip2house
+      POSTGRES_PASSWORD: clip2house
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clip2house"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  ledger:
+    build:
+      context: .
+      dockerfile: ledger/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/clip2house
+      SPRING_DATASOURCE_USERNAME: clip2house
+      SPRING_DATASOURCE_PASSWORD: clip2house
+      CLIP2HOUSE_ORCHESTRATOR_BASE_URL: http://orchestrator:8100
+      INTERNAL_API_SECRET: ${INTERNAL_API_SECRET:-dev-internal-secret}
+    ports:
+      - "8080:8080"
+
+  orchestrator:
+    build: ./orchestrator
+    environment:
+      C2H_LEDGER_BASE_URL: http://ledger:8080
+      C2H_INTERNAL_API_SECRET: ${INTERNAL_API_SECRET:-dev-internal-secret}
+      C2H_PROVIDER: ${C2H_PROVIDER:-nvidia}
+      C2H_NVIDIA_API_KEY: ${C2H_NVIDIA_API_KEY:-${NVIDIA_API_KEY:-}}
+      C2H_NVIDIA_MODEL: ${C2H_NVIDIA_MODEL:-nvidia/nemotron-3.5-lightning-30b-a3b}
+      C2H_NVIDIA_BASE_URL: ${C2H_NVIDIA_BASE_URL:-https://integrate.api.nvidia.com/v1}
+    ports:
+      - "8100:8100"
+
+volumes:
+  pgdata:

@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: clip2house-ledger
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/clip2house}
+    username: ${SPRING_DATASOURCE_USERNAME:clip2house}
+    password: ${SPRING_DATASOURCE_PASSWORD:clip2house}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus, metrics
+clip2house:
+  market:
+    target-active-listings: 60
+    listing-ttl: 12h
+    recycle-probability: 0.15
+    supply-log-min: 2.0
+    supply-log-max: 9.0
+    dictionary-match-tolerance: 0.5
+    faucet-interval: 30s
+    faucet-batch-cap: 10
+    expiry-interval: 60s
+  value:
+    gross-log-distance: 2.0
+    clear-threshold: 300000000
+    persona-loss-ratio: 0.7
+  auth:
+    guest-token-ttl: 30d
+    account-token-ttl: 30d
+  idempotency:
+    retention: 48h
+    cleanup-interval: 1h
+  season:
+    length: 56d
+  negotiation:
+    recovery-interval: 45s
+    # Keep this above the maximum quiet window.
+    recovery-min-age: 2m
+  retention:
+    audit-months: 6
+    analytics-months: 6
+    partition-maintenance-interval: 24h
+    archive-dir: ./.local/archive/partitions
+  rate-limit:
+    guest-per-ip-per-hour: 10
+    messages-per-player-per-minute: 20
+    requests-per-ip-per-minute: 240
+    friction-threshold: 5
+    friction-window: 10m
+    friction-messages-per-minute: 5
+  orchestrator:
+    base-url: http://localhost:8100
+    connect-timeout: 2s
+    read-timeout: 15s
+  internal:
+    api-secret: ${INTERNAL_API_SECRET:dev-internal-secret}
+  report:
+    weekly-cron: "0 0 9 * * MON"
+    webhook-url: ""
+  persona-stats:
+    refresh-interval: 5m
+    lookback: 7d

@@ -43,3 +43,18 @@ Rate Limit, Provider Down → 사람은 자리를 비우거나, 의도적으로 
 | 5   | [Evaluation & Observability](static/docs/05-evaluation-observability.md) | 탐지, 검증, 관측                                 |
 | 6   | [Operations](static/docs/06-operations.md)                               | 비용, 남용, 데이터 수명, 운영                    |
 | 7   | [Architecture & Stack](static/docs/07-architecture-stack.md)             | 스택 근거, 서비스 경계, 커밋 프로토콜, 수용 기준 |
+
+## 🏗️ Services
+
+| 서비스                          | 스택                     | 소유                                                    |
+| ------------------------------- | ------------------------ | ------------------------------------------------------- |
+| [`ledger/`](ledger/)            | Spring Boot + PostgreSQL | 거래 Commit, Holdings, 사전, 계정, 시장, 리더보드       |
+| [`orchestrator/`](orchestrator/) | FastAPI                  | NPC 턴, 페르소나, Provider 추상화, Quiet Window, 분류기 |
+| [`web/`](web/)                  | React 19 + Vite + TS     | 웹 클라이언트 — 빌드 산출물을 ledger가 8080에서 서빙    |
+
+테스트: `ledger/`에서 `./gradlew test`(임베디드 PostgreSQL, Docker 불필요),
+`orchestrator/`에서 `uv run pytest`. 문서 07의 Acceptance Criteria가 전부 테스트로 존재한다.
+
+도구 설치부터 로컬 직접 실행까지의 상세 절차는 **[실행 가이드](GETTING_STARTED.md)** 참조.
+
+페르소나 데이터 귀속 표기는 [NOTICE.md](NOTICE.md).
